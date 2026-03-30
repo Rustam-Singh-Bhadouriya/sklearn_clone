@@ -25,32 +25,35 @@ This project is part of my journey to deeply understand ML internals by recreati
 
 ## 📁 Project Structure
 sklearn_clone/
-│
-├── linear_model/
-│ ├── linear_regression.py
-│ └── logistic_regression.py
-│
-├── preprocessing/
-│ ├── minmax_scaler.py
-│ └── standard_scaler.py
-│
-├── metrics/
-│ └── metrics.py
-│
-└── README.md
+│  
+├── linear_model/  
+│ ├── LinearRegression.py  
+│ └── LogisticRegression.py  
+│  
+├── preprocessing/  
+│ ├── Scaler.py  
+│  
+├── metrics/  
+│ └── metrics.py  
+│  
+└── README.md  
 
 
 ---
 
 ## 🛠️ Installation
 
-Clone the repository:
+- `Clone the repository:`
 
 ```bash
 git clone https://github.com/your-username/sklearn-clone.git
 cd sklearn-clone
+```
+
+- `requiements install`  
 
 ``` bash
 pip install -r requirements.txt
+```
 
-### Checkout Beta branch to Use Case of it checkout model_test.py
+### Checkout Beta branch & how_to_use.py
