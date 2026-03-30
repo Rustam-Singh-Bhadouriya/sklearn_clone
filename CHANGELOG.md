@@ -1,0 +1,1 @@
+- feat: SimpleLinearRegression (Optimal) & MinMaxScaler in Scaler.py
