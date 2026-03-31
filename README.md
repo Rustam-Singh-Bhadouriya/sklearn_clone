@@ -38,7 +38,6 @@ sklearn_clone/
 │  
 └── README.md  
 
-
 ---
 
 ## 🛠️ Installation
@@ -57,3 +56,4 @@ pip install -r requirements.txt
 ```
 
 ### Checkout Beta branch & how_to_use.py
+### Checkout README.md inside all folders for Extra Knowledge

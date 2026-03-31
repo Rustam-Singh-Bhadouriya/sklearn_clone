@@ -1,1 +1,2 @@
 - feat: SimpleLinearRegression (Optimal) & MinMaxScaler in Scaler.py
+- feat: Implemented StandardScaler (Scaler.py). Added README.md in preprocessing

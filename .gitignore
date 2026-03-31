@@ -1,7 +1,5 @@
 /__pychache__
 
-*/Test
-
 
 *.xml
 
@@ -10,3 +8,4 @@
 
 
 *.pyc
+tests/

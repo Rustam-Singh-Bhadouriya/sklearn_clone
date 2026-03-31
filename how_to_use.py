@@ -8,7 +8,7 @@ X = np.array([10 , 20, 30, 40, 50, 60])
 y = np.array([100, 200, 300 ,400 ,500, 600])
 X_test = np.array([60, 70, 80])
 
-# Without Scaler - Not Prefered
+# Without Scaler - Not Prefered Or Change Learning_rate to 0.0001 or lower value
 
 Model = SimpleLinearRegression()
 Model_sk = LinearRegression()
