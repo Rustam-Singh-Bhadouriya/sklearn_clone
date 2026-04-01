@@ -31,7 +31,7 @@ sklearn_clone/
 │ └── LogisticRegression.py  
 │  
 ├── preprocessing/  
-│ ├── Scaler.py  
+│ ├── scaler.py  
 │  
 ├── metrics/  
 │ └── metrics.py  
