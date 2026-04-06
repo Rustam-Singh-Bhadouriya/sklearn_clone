@@ -147,3 +147,117 @@ def r2_score_helper_2D(y_true, y_pred, weight=None, score_only=False):
             raise ValueError("Invalid weights given")
         
         return np.average(r2_scores, weights=weight)
+
+def mse(
+    y_true,
+    y_pred,
+    multi_output="uniform_average",
+    weights=None
+):
+    
+    """
+    Mean Squared Error  
+
+    The Mean Squared Error measures the average squared difference between
+    the true target values and the predicted values. It penalizes larger
+    errors more heavily due to the squaring operation, making it sensitive
+    to outliers.
+
+    Parameter
+    ---------
+    y_true : array-like of shape (n_samples,) or (n_samples, n_outputs)
+        Ground truth (correct) target values.
+
+    y_pred : array-like of shape (n_samples,) or (n_samples, n_outputs)
+        Predicted target values.
+    
+    multi_output : {"uniform_average", "weighted", "raw_values"}, default="uniform_average"
+        Defines how to aggregate error for multi-output data:
+        
+        - "uniform_average" : Average error across all outputs (default)
+        - "weighted"        : Weighted average using `weights`
+        - "raw_values"      : Return error for each output separately
+
+    weights : array-like of shape (n_outputs,), optional
+        Weights used when `multi_output="weighted"`. Higher values indicate
+        greater importance of the corresponding output.
+
+    Returns
+    -------
+    float or np.ndarray of shape (n_outputs,)
+        mean squared error Returns a single float for 1D targets or aggregated output
+        or an array of scores when `multi_output="raw_values"`.
+    
+    Raise
+    -----
+    ValueError: when array's Shape MisMatch or Invalid `multi_output` and Invalid `weights`
+    
+
+    Example
+    -------
+    >>> from sklearn_clone.metrics import mse # Importing
+    >>> # 1D case
+    >>> print(mse([1, 2, 3], [1, 2, 4]))  # expected: 0.333...
+
+    >>> # multi-output
+    >>> y_true = [[1, 2], [3, 4]]
+    >>> y_pred = [[1, 3], [2, 5]]
+
+    >>> print(mse(y_true, y_pred, multi_output="raw_values"))
+    """
+    
+    valid_options = {"uniform_average", "weighted", "raw_values"}
+    if multi_output not in valid_options:
+        raise ValueError(
+            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
+        )
+    
+
+
+    # Formula = 1/n sum((y_true - y_pred)**2)
+
+    y_true = np.asarray(y_true, dtype=float) # Changing to np.array
+    y_pred = np.asarray(y_pred, dtype=float)
+
+    if y_true.shape != y_pred.shape:
+        raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
+    
+    if y_true.shape[1] == 1 or y_true.ndim == 1:
+        return mse_helper_1d(y_true, y_pred)
+    
+    output_errors = mse_helper_2D(y_true, y_pred)
+
+    if multi_output == "raw_values":
+        return output_errors
+    
+    if multi_output == "uniform_average":
+        return np.mean(output_errors)
+    
+    if multi_output == "weighted":
+        if weights is None:
+            raise ValueError("weights must be provided for weighted averaging")
+        
+        weights = np.asarray(weights)
+        
+        if weights.shape[0] != len(output_errors):
+            raise ValueError(f"Invalid Weight Size got {weights.shape[0]}, needed {len(output_errors)}")
+        
+        return np.average(output_errors, weights=weights)
+    
+
+
+# MSE helper for 1 columns Simple Regression Ouput
+def mse_helper_1d(y_true: np.array, y_pred: np.array):
+    y_true = np.ravel(y_true)
+    y_pred = np.ravel(y_pred)
+
+    n = len(y_true)
+
+    output_error = np.sum((y_true - y_pred)**2) / n
+
+    return float(output_error)
+
+
+# MSE helper for multioutput Regression Tasks
+def mse_helper_2D(y_true: np.array , y_pred : np.array):
+    return np.mean((y_true - y_pred) ** 2, axis=0) # vector Calculation

@@ -5,8 +5,8 @@ This module provides essential regression evaluation metrics implemented from sc
 Currently, it includes:
 
 - **R² Score (`r2_score`)**
+- **mean_squared_error (`mse`)**
 - MAE *(coming soon)*
-- MSE *(coming soon)*
 - RMSE *(coming soon)*
 
 
@@ -29,7 +29,7 @@ Currently, it includes:
 
 ## 📌 Available Functions
 
-### 🔹 `r2_score`
+# 🔹 `r2_score`
 
 Compute the **coefficient of determination (R² score)**.
 
@@ -41,14 +41,17 @@ Compute the **coefficient of determination (R² score)**.
 | `multi_output` | How to handle multi-output data |
 | `weights`      | Weights for weighted averaging  |
 
-### `multi_output` options
+#### `multi_output` options
 | Option            | Description                             |
 | ----------------- | --------------------------------------- |
 | `uniform_average` | Average scores across outputs (default) |
 | `weighted`        | Weighted average using `weights`        |
 | `raw_values`      | Return score for each output            |
 
-## How to Use
+#### Return Type
+**`float` between 0.0 to 1.0**
+
+#### How to Use
 
 - `For 1D array`
 ```python
@@ -80,7 +83,62 @@ score = r2_score(
 )
 ```
 
-## ⚠️ Notes
+#### ⚠️ Notes
 - Input shapes must match  
 - Minimum 2 samples required  
 - For constant y_true, R² returns 0.0  
+
+# 🔹 `mse`
+Compute the mean Squred Error
+
+| Parameter      | Description                     |
+| -------------- | ------------------------------- |
+| `y_true`       | Ground truth values             |
+| `y_pred`       | Predicted values                |
+| `multi_output` | How to handle multi-output data |
+| `weights`      | Weights for weighted averaging  |
+
+#### `multi_output` options
+| Option            | Description                             |
+| ----------------- | --------------------------------------- |
+| `uniform_average` | Average errors across outputs (default) |
+| `weighted`        | Weighted average using `weights`        |
+| `raw_values`      | Return error for each output            |
+
+#### Return Type
+**`float` any to any**
+
+#### How to Use
+
+- `For 1D array`
+```python
+from sklearn_clone.metrics import mse
+
+y_true = [3, -0.5, 2, 7]
+y_pred = [2.5, 0.0, 2, 8]
+
+error = mse(y_true, y_pred)
+print(error)
+```
+
+- `For Multi Ouput Array`
+```python
+y_true = [[3, 10], [-0.5, 20], [2, 30], [7, 40]]
+y_pred = [[2.5, 12], [0.0, 18], [2, 33], [8, 39]]
+
+error = mse(y_true, y_pred)
+print(error)
+```
+
+- `For Multi Ouput Array with Weights`
+``` python
+error = mse(
+    y_true,
+    y_pred,
+    multi_output="weighted",
+    weights=[0.6, 0.4]
+)
+```
+
+#### ⚠️ Notes
+- Input shapes must match

@@ -4,3 +4,4 @@
 - feat: LinearRegrssion (_LinearRegression.py).  added README.md in linear_model
 - feat: LogisticRegression (_LogisticRegression.py). updated README.md in linear_model
 - feat: r2_score (_regression.py). added README.md in metrics
+- feat: mse (_regression.py). Fixed r2_score 1 column array issue, updated metrics/README.md
