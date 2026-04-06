@@ -31,13 +31,12 @@ sklearn_clone/
 │ └── LogisticRegression.py  
 │  
 ├── preprocessing/  
-│ ├── Scaler.py  
+│ ├── scaler.py  
 │  
 ├── metrics/  
 │ └── metrics.py  
 │  
 └── README.md  
-
 
 ---
 
@@ -46,7 +45,7 @@ sklearn_clone/
 - `Clone the repository:`
 
 ```bash
-git clone https://github.com/your-username/sklearn-clone.git
+https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
 cd sklearn-clone
 ```
 
@@ -57,3 +56,4 @@ pip install -r requirements.txt
 ```
 
 ### Checkout Beta branch & how_to_use.py
+### Checkout README.md inside all folders for Extra Knowledge

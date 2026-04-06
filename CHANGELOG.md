@@ -1,1 +1,6 @@
 - feat: SimpleLinearRegression (Optimal) & MinMaxScaler in Scaler.py
+- feat: Implemented StandardScaler (_scaler.py). Added README.md in preprocessing
+- feat: train_test_split (_split.py). Fixed Project Structure
+- feat: LinearRegrssion (_LinearRegression.py).  added README.md in linear_model
+- feat: LogisticRegression (_LogisticRegression.py). updated README.md in linear_model
+- feat: r2_score (_regression.py). added README.md in metrics
