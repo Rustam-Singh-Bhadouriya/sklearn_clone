@@ -1,3 +1,3 @@
-from ._regression import r2_score, mse
+from ._regression import r2_score, mse, mae
 
-__all__ = ["r2_score", "mse"]
+__all__ = ["r2_score", "mse", "mae"]

@@ -86,10 +86,12 @@ score = r2_score(
 #### ⚠️ Notes
 - Input shapes must match  
 - Minimum 2 samples required  
-- For constant y_true, R² returns 0.0  
+- For constant y_true, R² returns 0.0
 
-# 🔹 `mse`
-Compute the mean Squred Error
+----------
+
+# 🔹 `MSE`
+Compute the Mean Squred Error
 
 | Parameter      | Description                     |
 | -------------- | ------------------------------- |
@@ -142,3 +144,62 @@ error = mse(
 
 #### ⚠️ Notes
 - Input shapes must match
+
+---------------
+
+# 🔹 `MAE`
+Compute the Mean Absolute Error | Better for Outliers than MSE
+
+| Parameter      | Description                     |
+| -------------- | ------------------------------- |
+| `y_true`       | Ground truth values             |
+| `y_pred`       | Predicted values                |
+| `multi_output` | How to handle multi-output data |
+| `weights`      | Weights for weighted averaging  |
+
+#### `multi_output` options
+| Option            | Description                             |
+| ----------------- | --------------------------------------- |
+| `uniform_average` | Average errors across outputs (default) |
+| `weighted`        | Weighted average using `weights`        |
+| `raw_values`      | Return error for each output            |
+
+#### Return Type
+**`float` any to any**
+
+#### How to Use
+
+- `For 1D array`
+```python
+from sklearn_clone.metrics import mae
+
+y_true = [3, -0.5, 2, 7]
+y_pred = [2.5, 0.0, 2, 8]
+
+error = mae(y_true, y_pred)
+print(error)
+```
+
+- `For Multi Ouput Array`
+```python
+y_true = [[3, 10], [-0.5, 20], [2, 30], [7, 40]]
+y_pred = [[2.5, 12], [0.0, 18], [2, 33], [8, 39]]
+
+error = mae(y_true, y_pred)
+print(error)
+```
+
+- `For Multi Ouput Array with Weights`
+``` python
+error = mae(
+    y_true,
+    y_pred,
+    multi_output="weighted",
+    weights=[0.6, 0.4]
+)
+```
+
+#### ⚠️ Notes
+- Input shapes must match
+
+-----------
