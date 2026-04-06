@@ -18,7 +18,7 @@ All Methords
 - RMSE (Coming Soon)  
 """
 
-
+# ========================== r2_score =========================
 def r2_score(y_true, y_pred, multi_output="uniform_average", weights=None):
     """
     Compute the coefficient of determination (R² score).
@@ -147,7 +147,10 @@ def r2_score_helper_2D(y_true, y_pred, weight=None, score_only=False):
             raise ValueError("Invalid weights given")
         
         return np.average(r2_scores, weights=weight)
+    
+# ========================== r2_score =========================
 
+# ========================== MSE =========================
 def mse(
     y_true,
     y_pred,
@@ -271,7 +274,75 @@ def mse_helper_2D(y_true: np.array , y_pred : np.array):
         errors.append(error)
     
     return np.array(errors)
+# ========================== MSE =========================
 
+
+# ========================== RMSE =========================
+def rmse(
+    y_true,
+    y_pred,
+    multi_output="uniform_average",
+    weights=None
+):
+    
+    """
+    Root Mean Squared Error  
+
+    The Root Mean Squared Error measures the average absolute difference between  
+    the true target values and the predicted values. It penalizes Smaller Errors Than MSE errors  
+    due to the Absolute `np.sqrt` operation, making it not well to outliers as MAE.  
+
+    Parameter
+    ---------
+    y_true : array-like of shape (n_samples,) or (n_samples, n_outputs)
+        Ground truth (correct) target values.
+
+    y_pred : array-like of shape (n_samples,) or (n_samples, n_outputs)
+        Predicted target values.
+    
+    multi_output : {"uniform_average", "weighted", "raw_values"}, default="uniform_average"
+        Defines how to aggregate error for multi-output data:
+        
+        - "uniform_average" : Average error across all outputs (default)
+        - "weighted"        : Weighted average using `weights`
+        - "raw_values"      : Return error for each output separately
+
+    weights : array-like of shape (n_outputs,), optional
+        Weights used when `multi_output="weighted"`. Higher values indicate
+        greater importance of the corresponding output.
+
+    Returns
+    -------
+    float or np.ndarray of shape (n_outputs,)
+        mean squared error Returns a single float for 1D targets or aggregated output
+        or an array of scores when `multi_output="raw_values"`.
+    
+    Raise
+    -----
+    ValueError: when array's Shape MisMatch or Invalid `multi_output` and Invalid `weights`
+    
+
+    Example
+    -------
+    >>> from sklearn_clone.metrics import rmse # Importing
+    >>> # 1D case
+    >>> print(rmse([1, 2, 3], [1, 2, 4]))  # expected: 0.578...
+
+    >>> # multi-output
+    >>> y_true = [[1, 2], [3, 4]]
+    >>> y_pred = [[1, 3], [2, 5]]
+
+    >>> print(rmse(y_true, y_pred, multi_output="raw_values"))
+    """
+    
+    error = mse(y_true, y_pred, multi_output, weights)
+    return float(np.sqrt(error))
+    
+# ========================== RMSE =========================
+
+
+
+# ========================== MAE =========================
 def mae(
     y_true,
     y_pred,
@@ -367,8 +438,6 @@ def mae(
         
         return np.average(output_errors, weights=weights)
     
-
-
 # MAE helper for 1 columns Regression Ouput
 def mae_helper_1d(y_true: np.array, y_pred: np.array):
     y_true = np.ravel(y_true)
@@ -394,3 +463,5 @@ def mae_helper_2D(y_true: np.array , y_pred : np.array):
         errors.append(error)
     
     return np.array(errors)
+
+# ========================== MAE =========================

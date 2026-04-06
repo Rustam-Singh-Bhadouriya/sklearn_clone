@@ -6,3 +6,4 @@
 - feat: r2_score (_regression.py). added README.md in metrics
 - feat: mse (_regression.py). Fixed r2_score 1 column array issue, updated metrics/README.md
 - feat: mae (_regression.py). Fixed mse wrong return type, updated metrics/README.md
+-feat: RMSE (_regression.py).

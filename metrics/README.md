@@ -33,6 +33,9 @@ Currently, it includes:
 
 Compute the **coefficient of determination (R² score)**.
 
+**Formula**
+**`sum of (y_true-y_pred)^2`** / **`sum of (y_true - mean(y_true))^2`**
+
 
 | Parameter      | Description                     |
 | -------------- | ------------------------------- |
@@ -91,7 +94,10 @@ score = r2_score(
 ----------
 
 # 🔹 `MSE`
-Compute the Mean Squred Error
+Compute the Mean Squred Error  
+**Formula**
+**`sum of (y_true - y_pred)^2`** / **`n`**
+- `n = length of y_true`
 
 | Parameter      | Description                     |
 | -------------- | ------------------------------- |
@@ -148,7 +154,10 @@ error = mse(
 ---------------
 
 # 🔹 `MAE`
-Compute the Mean Absolute Error | Better for Outliers than MSE
+Compute the Mean Absolute Error | Better for Outliers than MSE  
+**Formula**
+**`sum of | y_true - y_pred |`** / **`n`**
+- `n = length of y_true`
 
 | Parameter      | Description                     |
 | -------------- | ------------------------------- |
@@ -203,3 +212,62 @@ error = mae(
 - Input shapes must match
 
 -----------
+
+# 🔹 `RMSE`
+Compute the Root Mean Squred Error   
+**Formula**
+**`Sqaure root of 'MSE'`**
+
+| Parameter      | Description                     |
+| -------------- | ------------------------------- |
+| `y_true`       | Ground truth values             |
+| `y_pred`       | Predicted values                |
+| `multi_output` | How to handle multi-output data |
+| `weights`      | Weights for weighted averaging  |
+
+#### `multi_output` options
+| Option            | Description                             |
+| ----------------- | --------------------------------------- |
+| `uniform_average` | Average errors across outputs (default) |
+| `weighted`        | Weighted average using `weights`        |
+| `raw_values`      | Return error for each output            |
+
+#### Return Type
+**`float` any to any**
+
+#### How to Use
+
+- `For 1D array`
+```python
+from sklearn_clone.metrics import rmse
+
+y_true = [3, -0.5, 2, 7]
+y_pred = [2.5, 0.0, 2, 8]
+
+error = rmse(y_true, y_pred)
+print(error)
+```
+
+- `For Multi Ouput Array`
+```python
+y_true = [[3, 10], [-0.5, 20], [2, 30], [7, 40]]
+y_pred = [[2.5, 12], [0.0, 18], [2, 33], [8, 39]]
+
+error = rmse(y_true, y_pred)
+print(error)
+```
+
+- `For Multi Ouput Array with Weights`
+``` python
+error = rmse(
+    y_true,
+    y_pred,
+    multi_output="weighted",
+    weights=[0.6, 0.4]
+)
+```
+
+#### ⚠️ Notes
+- Input shapes must match
+
+-----------------
