@@ -1,0 +1,18 @@
+[project]
+name = "rslearn"
+version = "1.0.0"
+description = "A simple sklearn-like ML library built from scratch"
+authors = [
+    { name="Rustam Singh Bhadouriya", email="rustambhadouriya7@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+
+dependencies = [
+    "numpy"
+]
+
+[build-system]
+[tool.setuptools.packages.find]
+where = ["."]

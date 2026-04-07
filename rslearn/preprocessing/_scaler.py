@@ -81,7 +81,7 @@ class StandardScaler:
         
         Examples
         --------
-        >>> from preprocessing.Scaler import StandardScaler
+        >>> from rslearn.preprocessing import StandardScaler
         >>> Scaler = StandardScaler()
         >>> X_Scaled = Scaler.fit(np.array([10, 20, 30])) # List Also works, np.array prefered
         >>> X_original = Scaler.inverse_transform(X_Scaled)

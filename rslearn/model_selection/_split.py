@@ -47,7 +47,7 @@ def train_test_split(X, y, test_size: float = 0.2, random_state: int = None, str
 
     Example
     -------
-    >>> from sklearn_clone.model_selection import train_test_split
+    >>> from rslearn.model_selection import train_test_split
     >>> X_train, X_test, y_train, y_test = train_test_split(
     ...     X, y, test_size=0.3, random_state=42, stratify=y
     ... )

@@ -1,5 +1,5 @@
-from sklearn_clone.linear_model import LinearRegression # Importing Regression
-from sklearn_clone.preprocessing import MinMaxScaler # Importing Scaler
+from rslearn.linear_model import LinearRegression # Importing Regression
+from rslearn.preprocessing import MinMaxScaler # Importing Scaler
 import numpy as np
 
 

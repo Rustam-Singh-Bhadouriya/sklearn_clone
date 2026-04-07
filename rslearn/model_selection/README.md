@@ -47,7 +47,7 @@ Using `stratify=y` ensures:
 ## 🧪 Usage
 
 ```python id="1w2fxl"
-from sklearn_clone.model_selection import train_test_split
+from rslearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,

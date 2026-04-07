@@ -1,4 +1,4 @@
-# 📊 sklearn_clone.metrics
+# 📊 rslearn.metrics
 
 This module provides essential regression evaluation metrics implemented from scratch using NumPy.
 
@@ -58,7 +58,7 @@ Compute the **coefficient of determination (R² score)**.
 
 - `For 1D array`
 ```python
-from sklearn_clone.metrics import r2_score
+from rslearn.metrics import r2_score
 
 y_true = [3, -0.5, 2, 7]
 y_pred = [2.5, 0.0, 2, 8]
@@ -120,7 +120,7 @@ Compute the Mean Squred Error
 
 - `For 1D array`
 ```python
-from sklearn_clone.metrics import mse
+from rslearn.metrics import mse
 
 y_true = [3, -0.5, 2, 7]
 y_pred = [2.5, 0.0, 2, 8]
@@ -180,7 +180,7 @@ Compute the Mean Absolute Error | Better for Outliers than MSE
 
 - `For 1D array`
 ```python
-from sklearn_clone.metrics import mae
+from rslearn.metrics import mae
 
 y_true = [3, -0.5, 2, 7]
 y_pred = [2.5, 0.0, 2, 8]
@@ -239,7 +239,7 @@ Compute the Root Mean Squred Error
 
 - `For 1D array`
 ```python
-from sklearn_clone.metrics import rmse
+from rslearn.metrics import rmse
 
 y_true = [3, -0.5, 2, 7]
 y_pred = [2.5, 0.0, 2, 8]

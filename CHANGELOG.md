@@ -1,10 +1,33 @@
-- feat: SimpleLinearRegression (Optimal) & MinMaxScaler in Scaler.py
-- feat: Implemented StandardScaler (_scaler.py). Added README.md in preprocessing
-- feat: train_test_split (_split.py). Fixed Project Structure
-- feat: LinearRegrssion (_LinearRegression.py).  added README.md in linear_model
-- feat: LogisticRegression (_LogisticRegression.py). updated README.md in linear_model
-- feat: r2_score (_regression.py). added README.md in metrics
-- feat: mse (_regression.py). Fixed r2_score 1 column array issue, updated metrics/README.md
-- feat: mae (_regression.py). Fixed mse wrong return type, updated metrics/README.md
-- feat: RMSE (_regression.py).
-- feat: Regulization (Ridge, Lasso, ElasticNet, LinearRegression regulized)  (_LinearRegression.py, _regulization.py), Updated linear_model/README.md
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+---
+
+## [1.0.0] - 2026-04-07
+
+### Added
+
+* Linear Regression (Gradient Descent based)
+* Logistic Regression (Binary & Multi-class)
+* Ridge (L2 Regularization)
+* Lasso (L1 Regularization)
+* Elastic Net (L1 + L2)
+* StandardScaler and MinMaxScaler
+* Train-Test Split with stratify support
+* Metrics:
+
+  * MSE, MAE, RMSE, R² Score, Accuracy
+* Support for single and multi-output tasks
+
+### Improved
+
+* Clean sklearn-like API design
+* Modular folder structure
+* Internal documentation for each module
+* CHANGELOG.md
+
+### Notes
+
+* Models use Gradient Descent — feature scaling is highly recommended
+* Regularized models include optional auto-scaling (`scale=True`)

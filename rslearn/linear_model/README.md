@@ -23,14 +23,14 @@ its pretty Simple Just import define and fit and then predict like sklearn like
 ***Read Doc Strings For More Prameter Knowledge***
 
 ```python
-from sklearn_clone.linear_model import LinearRegression
+from rslearn.linear_model import LinearRegression
 Model = LinearRegression(regulization="l1")
 ```
 
 ### `Logistic Regression`
 StandardScaler or MinMaxScaler is preferd in Multi class classification
 ``` python
-from sklearn_clone.linear_model import LogisticRegression
+from rslearn.linear_model import LogisticRegression
 Model = LogisticRegression()
 ```
 checkout preprocessing/README.md for Scalers detail
@@ -45,7 +45,7 @@ Regulizations For avoid overfitting
 Use `Scalers`, e.g `StandardScaler`, `MinMaxScaler` for better performance
 
 ``` python
-from sklearn_clone.linear_model import Lasso, Ridge, ElasticNet
+from rslearn.linear_model import Lasso, Ridge, ElasticNet
 ```
 
 

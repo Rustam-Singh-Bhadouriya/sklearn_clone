@@ -7,7 +7,7 @@ Notes
 - Feature scaling is highly recommended for better convergence and performance.
 
 Recommended preprocessing:
-    from sklearn_clone.preprocessing import StandardScaler, MinMaxScaler
+    from rslearn.preprocessing import StandardScaler, MinMaxScaler
 
 Example:
     scaler = StandardScaler()
@@ -48,7 +48,7 @@ class LogisticRegression:
 
     Example
     -------
-    >>> from sklearn_clone.linear_model import LogisticRegression
+    >>> from rslearn.linear_model import LogisticRegression
     >>> Model = LogisticRegression()
     >>> Model.fit(X, y)
     >>> pred = Model.predict(X_test)

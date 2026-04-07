@@ -55,7 +55,7 @@ def r2_score(y_true, y_pred, multi_output="uniform_average", weights=None):
     --------
     Basic usage with 1D targets:
 
-    >>> from sklearn_clone.metrics import r2_score
+    >>> from rslearn.metrics import r2_score
     >>> y_true = [3, -0.5, 2, 7]
     >>> y_pred = [2.5, 0.0, 2, 8]
     >>> r2_score(y_true, y_pred)
@@ -198,7 +198,7 @@ def mse(
 
     Example
     -------
-    >>> from sklearn_clone.metrics import mse # Importing
+    >>> from rslearn.metrics import mse # Importing
     >>> # 1D case
     >>> print(mse([1, 2, 3], [1, 2, 4]))  # expected: 0.333...
 
@@ -327,7 +327,7 @@ def rmse(
 
     Example
     -------
-    >>> from sklearn_clone.metrics import rmse # Importing
+    >>> from rslearn.metrics import rmse # Importing
     >>> # 1D case
     >>> print(rmse([1, 2, 3], [1, 2, 4]))  # expected: 0.578...
 
@@ -392,7 +392,7 @@ def mae(
 
     Example
     -------
-    >>> from sklearn_clone.metrics import mae # Importing
+    >>> from rslearn.metrics import mae # Importing
     >>> # 1D case
     >>> print(mae([1, 2, 3], [1, 2, 4]))  # expected: 0.333...
 

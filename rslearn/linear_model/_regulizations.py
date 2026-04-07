@@ -1,4 +1,4 @@
-from sklearn_clone.linear_model import LinearRegression
+from rslearn.linear_model import LinearRegression
 
 """
 This File Contains regulizing algorithams to avoid overfitting though the model  
@@ -32,7 +32,7 @@ class Lasso:
     Example
     -------
 
-    >>> from sklearn_clone.linear_model import Lasso
+    >>> from rslearn.linear_model import Lasso
     >>> LassoR = Lasso() # Using Default Parameters
     >>> LassoR.fit(X, y, Scale=True) # Auto Scales Basicly for better performence use StandardScaler
     >>> LassoR.predict(X_new)
@@ -105,7 +105,7 @@ class Ridge:
     Example
     -------
 
-    >>> from sklearn_clone.linear_model import Ridge
+    >>> from rslearn.linear_model import Ridge
     >>> RidgeR = Ridge() # Using Default Parameters
     >>> RidgeR.fit(X, y, Scale=True) # Auto Scales Basicly for better performence use StandardScaler
     >>> RidgeR.predict(X_new)
@@ -178,7 +178,7 @@ class ElasticNet:
     Example
     -------
 
-    >>> from sklearn_clone.linear_model import ElasticNet
+    >>> from rslearn.linear_model import ElasticNet
     >>> En = ElasticNet() # Using Default Parameters
     >>> En.fit(X, y, Scale=True) # Auto Scales Basicly for better performence use StandardScaler
     >>> En.predict(X_new)

@@ -16,12 +16,12 @@ db = gradient descenf of bias
 It uses Gradients so, Use `StandardScaler` or `MinMaxScaler` for better result  
 
 Scalers...
->>> from sklearn_clone.preprocessing import StandardScaler, MinMaxScaler
+>>> from rslearn.preprocessing import StandardScaler, MinMaxScaler
 Read READNE.md or Documentation for More Information about their Functions
 """
 
 import numpy as np
-from sklearn_clone.metrics import mse
+from rslearn.metrics import mse
 
 class LinearRegression():
 
@@ -66,7 +66,7 @@ class LinearRegression():
         Example
         -------
 
-        >>> from sklearn_clone.linear_model import LinearRegression
+        >>> from rslearn.linear_model import LinearRegression
         >>> Model = LinearRegression()
         >>> X = np.array([10, 20, 30]) # List also works.
         >>> y = np.array([5, 10, 15])
