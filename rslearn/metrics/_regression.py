@@ -94,7 +94,7 @@ def r2_score(y_true, y_pred, multi_output="uniform_average", weights=None):
     r2_scores = r2_score_helper_2D(y_true, y_pred, score_only=True)
 
     if multi_output == "raw_values":
-        return r2_score
+        return r2_scores
 
     if multi_output == "uniform_average":
         return np.mean(r2_scores)
@@ -260,7 +260,6 @@ def mse_helper_1d(y_true: np.array, y_pred: np.array):
     n = len(y_true)
 
     output_error = np.sum((y_true - y_pred)**2) / n
-    print(output_error)
     return float(output_error)
 
 
@@ -339,7 +338,7 @@ def rmse(
     """
     
     error = mse(y_true, y_pred, multi_output, weights)
-    return float(np.sqrt(error))
+    return np.sqrt(error)
     
 # ========================== RMSE =========================
 
@@ -465,7 +464,7 @@ def mae_helper_2D(y_true: np.array , y_pred : np.array):
         selected_true = y_true[:, cols]
         selected_pred = y_pred[:, cols]
 
-        error = mse_helper_1d(selected_true, selected_pred)
+        error = mae_helper_1d(selected_true, selected_pred)
         errors.append(error)
     
     return np.array(errors)

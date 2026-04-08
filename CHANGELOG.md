@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 * Internal documentation for each module
 * CHANGELOG.md
 * Doc Strings
+* Basic metrics problems
 
 ### Notes
 
