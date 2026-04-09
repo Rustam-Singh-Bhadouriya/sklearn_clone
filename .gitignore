@@ -9,5 +9,6 @@
 
 *.pyc
 tests/
-dist/
-rslearn_ML.egg-info/
+dist/*
+rslearn_ML.egg-info/*
+.pypirc 
