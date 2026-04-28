@@ -6,7 +6,28 @@ This project is focused on deeply understanding ML algorithms by implementing th
 
 ---
 
+## Release & Changes
+* **Version : 1.0.4 - 1.0.3**
+* **Release Date: 2026-04-28**
+
 ## 🚀 Features
+
+### Latest (In metrics/_classification.py): 
+* Confusion Metrics
+* Recall
+* Precision
+* F1 Score
+
+## 🐛 Fixes
+* Module Base Design
+* Simplicity In Code Style
+
+## 🗄️ New File
+* **_base.py**
+* **download.md**
+
+## Download Version Specific Module
+***[Downloads - Module](download.md)***
 
 ### 📊 Linear Models
 
@@ -113,10 +134,12 @@ git clone https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
 cd rslearn
 ```
 
-### Install Usable Library
+### Install Usable Library (Stable - Latest)
 ``` bash
 pip install rslearn-ML
 ```
+## Download Version Specific Module
+***[Downloads Older Library](download.md)***
 
 ### Install dependencies
 
@@ -165,6 +188,7 @@ print(model.predict([40]))
 * Build a sklearn-like API
 * Create reusable and modular ML components
 * Learn real-world ML system design
+* Check Self Ability
 
 ---
 

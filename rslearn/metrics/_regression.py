@@ -1,4 +1,10 @@
 import numpy as np
+from ._base import (convert_array, 
+                    check_multioutput, 
+                    dim_validator, 
+                    shape_checker,
+                    multi_output_selector,
+                    convert1D)
 
 """
 `_regression.py`, By: Rustam Singh
@@ -71,49 +77,29 @@ def r2_score(y_true, y_pred, multi_output="uniform_average", weights=None):
     >>> r2_score(y_true, y_pred, multi_output="weighted", weights=[0.6, 0.4])
     """
 
-    valid_options = {"uniform_average", "weighted", "raw_values"}
-    if multi_output not in valid_options:
-        raise ValueError(
-            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
-        )
+    check_multioutput(parameter=multi_output)
 
-    y_true = np.asarray(y_true, dtype=float)
-    y_pred = np.asarray(y_pred, dtype=float)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
-    if y_true.shape != y_pred.shape:
-        raise ValueError(f"Shape mismatch: {y_true.shape} vs {y_pred.shape}")
+    shape_checker(arr1=y_true, arr2=y_pred, output_mode=True)
 
     if y_true.size < 2:
         raise ValueError("At least 2 samples are required")
 
     # Handle 1D case
-    if y_true.ndim == 1:
+    if dim_validator(y_true):
         return r2_score_1d(y_true, y_pred)
 
     # Multi-output case
     r2_scores = r2_score_helper_2D(y_true, y_pred, score_only=True)
 
-    if multi_output == "raw_values":
-        return r2_scores
+    # Handling MultiOutput Stuff
 
-    if multi_output == "uniform_average":
-        return np.mean(r2_scores)
-
-    if multi_output == "weighted":
-        if weights is None:
-            raise ValueError("weights must be provided for weighted averaging")
-
-        weights = np.asarray(weights)
-
-        if weights.shape[0] != len(r2_scores):
-            raise ValueError("weights length must match number of outputs")
-
-        return np.average(r2_scores, weights=weights)
+    return multi_output_selector(multi_output_param=multi_output, scores=r2_score, weights=weights)
 
 
 def r2_score_1d(y_true, y_pred):
-    y_true = np.ravel(y_true)
-    y_pred = np.ravel(y_pred)
+    y_true, y_pred = convert1D(y_true, y_pred)
 
     y_mean = np.mean(y_true)
 
@@ -209,58 +195,34 @@ def mse(
     >>> print(mse(y_true, y_pred, multi_output="raw_values"))
     """
     
-    valid_options = {"uniform_average", "weighted", "raw_values"}
-    if multi_output not in valid_options:
-        raise ValueError(
-            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
-        )
+    check_multioutput(parameter=multi_output)
     
 
 
     # Formula = 1/n sum((y_true - y_pred)**2)
 
-    y_true = np.asarray(y_true, dtype=float) # Changing to np.array
-    y_pred = np.asarray(y_pred, dtype=float)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
-    if y_true.shape != y_pred.shape:
-        raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
+    shape_checker(arr1=y_true, arr2=y_pred, output_mode=True)
     
-    if y_true.ndim == 1:
-        return mse_helper_1d(y_true, y_pred)
-    
-    if y_true.shape[1] == 1:
+    if dim_validator(y_true): # Handling 1D Case
         return mse_helper_1d(y_true, y_pred)
     
     output_errors = mse_helper_2D(y_true, y_pred)
 
-    if multi_output == "raw_values":
-        return output_errors
-    
-    if multi_output == "uniform_average":
-        return np.mean(output_errors)
-    
-    if multi_output == "weighted":
-        if weights is None:
-            raise ValueError("weights must be provided for weighted averaging")
-        
-        weights = np.asarray(weights)
-        
-        if weights.shape[0] != len(output_errors):
-            raise ValueError(f"Invalid Weight Size got {weights.shape[0]}, needed {len(output_errors)}")
-        
-        return np.average(output_errors, weights=weights)
+    # Handling Multi-Ouput Sparse Metrics Scene
+    return multi_output_selector(multi_output_param=multi_output, scores=output_errors, weights=weights)
     
 
 
 # MSE helper for 1 columns Simple Regression Ouput
 def mse_helper_1d(y_true: np.array, y_pred: np.array):
-    y_true = np.ravel(y_true)
-    y_pred = np.ravel(y_pred)
+    y_true, y_pred = convert1D(y_true, y_pred)
 
     n = len(y_true)
 
     output_error = np.sum((y_true - y_pred)**2) / n
-    return float(output_error)
+    return output_error
 
 
 # MSE helper for multioutput Regression Tasks
@@ -402,57 +364,32 @@ def mae(
     >>> print(mae(y_true, y_pred, multi_output="raw_values"))
     """
     
-    valid_options = {"uniform_average", "weighted", "raw_values"}
-    if multi_output not in valid_options:
-        raise ValueError(
-            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
-        )
+    check_multioutput(parameter=multi_output)
     
 
 
     # Formula = 1/n sum(np.abs((y_true - y_pred)))
 
-    y_true = np.asarray(y_true, dtype=float) # Changing to np.array
-    y_pred = np.asarray(y_pred, dtype=float)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
-    if y_true.shape != y_pred.shape:
-        raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
+    shape_checker(arr1=y_true, arr2=y_pred, output_mode=True)
     
-    if y_true.ndim == 1:
-        return mae_helper_1d(y_true, y_pred)
-
-    if  y_true.shape[1] == 1:
+    if dim_validator(y_true):
         return mae_helper_1d(y_true, y_pred)
     
     output_errors = mae_helper_2D(y_true, y_pred)
 
-    if multi_output == "raw_values":
-        return output_errors
-    
-    if multi_output == "uniform_average":
-        return np.mean(output_errors)
-    
-    if multi_output == "weighted":
-        if weights is None:
-            raise ValueError("weights must be provided for weighted averaging")
-        
-        weights = np.asarray(weights)
-        
-        if weights.shape[0] != len(output_errors):
-            raise ValueError(f"Invalid Weight Size got {weights.shape[0]}, needed {len(output_errors)}")
-        
-        return np.average(output_errors, weights=weights)
+    return multi_output_selector(multi_output_param=multi_output, scores=output_errors, weights=weights)
     
 # MAE helper for 1 columns Regression Ouput
 def mae_helper_1d(y_true: np.array, y_pred: np.array):
-    y_true = np.ravel(y_true)
-    y_pred = np.ravel(y_pred)
+    y_true, y_pred = convert1D(y_true, y_pred)
 
     n = len(y_true)
 
     output_error = np.sum(np.abs((y_true - y_pred))) / n
 
-    return float(output_error)
+    return output_error
 
 
 # MAE helper for multioutput Regression Tasks

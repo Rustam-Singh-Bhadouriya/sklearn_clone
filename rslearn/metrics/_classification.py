@@ -3,15 +3,21 @@ _classification.py
 
 This File Contains Many Important tools and sets of algorithams for classification tasks like  
 
-- `Accuracy Score (accuracy_score)`  
-- `log loss (coming soon)`  
-- `classification report (coming soon)`  
-- `precesion score (coming soon)`  
-- `recall score (coming soon)`  
+- `Accuracy Score`
+- `log loss`
+- `classification report`
+- `precesion score`
+- `recall score`
 
 """
 
 import numpy as np
+from ._base import (convert_array,
+                    check_multioutput,
+                    dim_validator,
+                    shape_checker,
+                    multi_output_selector,
+                    convert1D)
 
 def accuracy_score(y_true, y_pred, weights=None, multi_output="uniform_average", normalize=True):
     """Accuracy classification score.
@@ -73,54 +79,30 @@ def accuracy_score(y_true, y_pred, weights=None, multi_output="uniform_average",
     0.75
     """
 
-    valid_params = {"uniform_average", "raw_values", "weighted"}
-    if multi_output not in valid_params:
-        raise ValueError(
-            f"Got Invalid Parameter, {multi_output}. But supported {valid_params} only."
-        )
+    check_multioutput(parameter=multi_output)
 
     # Converting to Arrays
-    y_true = np.asarray(y_true, dtype=int)
-    y_pred = np.asarray(y_pred, dtype=int)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
     # Checking for Array Size MisMatch
-    if len(y_true) != len(y_pred):
-        raise ValueError(f"Array Size Mismatch {(len(y_true, y_pred))}")
+    shape_checker(y_true, y_pred, output_mode=True)
     
     
     # Handling Single Output Metrics
-    if y_true.ndim == 1:
+    if dim_validator(y_true):
         return _accuracy_score_helper_1d(y_true=y_true, y_pred=y_pred, normalize=normalize)
-    
-    if y_true.shape[1] == 1:
-        return _accuracy_score_helper_1d(y_true=y_true, y_pred=y_pred, normalize=normalize)
+
     
     outputs = _accuracy_score_helper_2d(y_true=y_true, y_pred=y_pred, normalize=normalize)
 
-    if multi_output == "uniform_average":
-        return np.mean(outputs)
-    
-    if multi_output == "raw_values":
-        return outputs
-    
-    if multi_output == "weighted":
-        if weights is None:
-            raise ValueError(f"weights aren't given, Enter weights in function parameter")
-        
-        weights = np.asarray(weights, dtype=float)
+    # Multioutput Case Handler
+    return multi_output_selector(multi_output_param=multi_output, scores=outputs, weights=weights)
 
-        if weights.shape[0] != len(outputs):
-            raise ValueError(f"Invalid Weight Size got {weights.shape[0]}, needed {len(outputs)}")
-        
-        np.average(outputs, weights=weights)
-
-    
 
         
 """Accuracy score Helper for 1D"""
 def _accuracy_score_helper_1d(y_true, y_pred, normalize=True):
-    y_true = np.ravel(y_true)
-    y_pred = np.ravel(y_pred)
+    y_true, y_pred = convert1D(y_true, y_pred)
     
     correct_count = 0
 
@@ -149,3 +131,189 @@ def _accuracy_score_helper_2d(y_true, y_pred, normalize=True):
         output.append(accuracy)
     
     return np.array(output)
+
+def confusion_metrics(y_true, y_pred):
+    """
+    Confusion Metrics  
+
+    Metrics of `TP`, `FP`, `TN`, `FN` combination for visible output for `Recall` and `precision` and `f1_score`  
+
+    Parameters
+    ----------
+    y_true : 1d array-like, or label indicator array / sparse matrix
+        Ground truth (correct) labels. Multi class also supported.    
+
+    y_pred : 1d array-like, or label indicator array / sparse matrix
+        Predicted labels, as returned by a classifier.  
+    
+    Returns
+    -------
+    (n_class, n_class) `np.array` metrics  
+
+    NOTE: y_true & y_pred length must be same.  
+
+    Raise
+    -----
+    Invalid Length Error.  
+
+    Example
+    -------
+    >>> from rslearn.metrics import confusion_metrics
+    >>> cm = confusion_metrics(true, pred) # returned metrics
+    >>> print(cm)
+
+    """
+    y_true, y_pred = convert_array(y_true, y_pred)
+
+    y_true, y_pred = convert1D(y_true, y_pred) # converting shape (n, 1) to (n,)
+
+    shape_checker(y_true, y_pred, output_mode=True) # checking length to raise more & more errors :)
+
+
+    classes = np.unique(np.concatenate((y_true, y_pred))) # seprating class
+    num_class = len(classes)
+
+    class_to_index = {c: i for i, c in enumerate(classes)}
+
+
+    cm = np.zeros((num_class, num_class), dtype=int)
+
+    for true, pred in zip(y_true, y_pred): # updating metrics
+        cm[class_to_index[true], class_to_index[pred]] += 1
+
+    return cm
+
+
+def cm_helper(cm):
+    n_classes = cm.shape[0]
+    total = np.sum(cm)
+
+    TP = np.diag(cm)
+    FP = np.sum(cm, axis=0) - TP
+    FN = np.sum(cm, axis=1) - TP
+    TN = total - (TP + FP + FN)
+
+    return TP, FP, FN, TN
+
+
+def precision(y_true, y_pred):
+    """
+    precision  
+
+    Quality Measurement of Model for positve Values   
+
+    `Formula`
+    ---------
+    precision = TP / (TP + FP)
+
+    Parameters
+    ----------
+    y_true : 1d array-like, or label indicator array / sparse matrix
+        Ground truth (correct) labels. Multi class also supported.    
+
+    y_pred : 1d array-like, or label indicator array / sparse matrix
+        Predicted labels, as returned by a classifier.  
+    
+    Returns
+    -------
+    float64 
+
+    NOTE: y_true & y_pred length must be same.  
+
+    Raise
+    -----
+    Invalid Length Error.  
+
+    Example
+    -------
+    >>> from rslearn.metrics import precision
+    >>> score = precision(true, pred) # returned float value
+    >>> print(score)
+
+    """
+    cm = confusion_metrics(y_true, y_pred)
+    TP, FP, _, _ = cm_helper(cm)
+
+    return TP / (TP + FP)
+
+def recall(y_true, y_pred):
+    """
+    precision  
+
+    Quality Measurement of Model for find all positve Values   
+
+    `Formula`
+    ---------
+    precision = TP / (TP + FN)
+
+    Parameters
+    ----------
+    y_true : 1d array-like, or label indicator array / sparse matrix
+        Ground truth (correct) labels. Multi class also supported.    
+
+    y_pred : 1d array-like, or label indicator array / sparse matrix
+        Predicted labels, as returned by a classifier.  
+    
+    Returns
+    -------
+    float64 
+
+    NOTE: y_true & y_pred length must be same.  
+
+    Raise
+    -----
+    Invalid Length Error.  
+
+    Example
+    -------
+    >>> from rslearn.metrics import recall
+    >>> score = recall(true, pred) # returned float value
+    >>> print(score)
+    """
+
+    cm = confusion_metrics(y_true, y_pred)
+    TP, _ , FN, _ = cm_helper(cm)
+
+    return TP / (TP + FN)
+
+def f1_score(y_true, y_pred):
+
+    """
+    F1 Score    
+
+    The F1 score is a balanced metric for classification, particularly useful
+    for imbalanced datasets. It reaches its best value at 1 and worst at 0.  
+
+    `Formula`
+    ---------
+    F1 = 2 * precision * recall / (precision + recall + epsolon)
+
+    Parameters
+    ----------
+    y_true : 1d array-like, or label indicator array / sparse matrix
+        Ground truth (correct) labels. Multi class also supported.    
+
+    y_pred : 1d array-like, or label indicator array / sparse matrix
+        Predicted labels, as returned by a classifier.  
+    
+    Returns
+    -------
+    float64 
+
+    NOTE: y_true & y_pred length must be same.  
+
+    Raise
+    -----
+    Invalid Length Error.  
+
+    Example
+    -------
+    >>> from rslearn.metrics import f1_score
+    >>> score = f1_score(true, pred) # returned float value
+    >>> print(score)
+    """
+
+    p = precision(y_true, y_pred)
+    r = recall(y_true, y_pred)
+
+    return 2 * (p * r) / (p + r + 1e-9)

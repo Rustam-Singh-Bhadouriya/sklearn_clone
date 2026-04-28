@@ -9,6 +9,9 @@ Currently, it includes:
 - **Mean Absolute Error (`mse`)** 
 - **Root Mean Squared Error (`rmse`)**
 
+### Visit For classification Evaluation Metics
+**[classification tools](classification_readme.md)**
+
 
 ---
 

@@ -4,32 +4,33 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.0] - 2026-04-07
+## [1.0.4 - v1.0.3] - 2026-04-28
 
 ### Added
+* `metrics/_base.py`
+* `download.md`
 
-* Linear Regression (Gradient Descent based)
-* Logistic Regression (Binary & Multi-class)
-* Ridge (L2 Regularization)
-* Lasso (L1 Regularization)
-* Elastic Net (L1 + L2)
-* StandardScaler and MinMaxScaler
-* Train-Test Split with stratify support
-* Metrics:
-
-  * MSE, MAE, RMSE, R² Score, Accuracy
-* Support for single and multi-output tasks
+----------
+* **`metrics`**:
+  * Confusion Metrics
+  * Recall
+  * Precision
+  * F1 Score
 
 ### Improved
-
-* Clean sklearn-like API design
-* Modular folder structure
-* Internal documentation for each module
-* CHANGELOG.md
-* Doc Strings
-* Basic metrics problems
+* Logistic Regression for Imbalanced Datasets
+* Code reusability Improved
 
 ### Notes
+***`See Older Version for more Information`***
 
-* Models use Gradient Descent — feature scaling is highly recommended
-* Regularized models include optional auto-scaling (`scale=True`)
+### File Changed
+* metrics/_classification.py
+* metrics/__init__.py
+* linear_model/_LogisticRegression.py
+* .gitignore
+* README.md
+* metrics/classification_readme.md
+* metrics/README.md
+* CHANGELOG.MD
+* metrics/_base.py

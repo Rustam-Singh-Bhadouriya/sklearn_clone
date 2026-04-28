@@ -11,3 +11,4 @@
 tests/
 dist/*
 rslearn_ML.egg-info/*
+.vscode/*

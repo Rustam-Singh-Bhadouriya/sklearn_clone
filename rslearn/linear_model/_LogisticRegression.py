@@ -178,8 +178,13 @@ class _binary_fit:
             y_pred = self._sigmoid(z)
 
             # Gradients
-            dw = (1/n_rows) * np.dot(X.T, (y_pred - y))
-            db = (1/n_rows) * np.sum(y_pred - y)
+            pos_weight = (n_rows / (2 * np.sum(y)))      # weight for class 1
+            neg_weight = (n_rows / (2 * np.sum(1 - y)))  # weight for class 0
+
+            weights_factor = y * pos_weight + (1 - y) * neg_weight
+
+            dw = (1/n_rows) * np.dot(X.T, (weights_factor * (y_pred - y)))
+            db = (1/n_rows) * np.sum(weights_factor * (y_pred - y))
 
             # update
             weights -= self.lr * dw
