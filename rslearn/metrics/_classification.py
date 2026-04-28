@@ -12,7 +12,12 @@ This File Contains Many Important tools and sets of algorithams for classificati
 """
 
 import numpy as np
-from ._base import check_multioutput, convert_array
+from ._base import (convert_array,
+                    check_multioutput,
+                    dim_validator,
+                    shape_checker,
+                    multi_output_selector,
+                    convert1D)
 
 def accuracy_score(y_true, y_pred, weights=None, multi_output="uniform_average", normalize=True):
     """Accuracy classification score.
@@ -80,43 +85,24 @@ def accuracy_score(y_true, y_pred, weights=None, multi_output="uniform_average",
     y_true, y_pred = convert_array(y_true, y_pred)
 
     # Checking for Array Size MisMatch
-    if len(y_true) != len(y_pred):
-        raise ValueError(f"Array Size Mismatch {(len(y_true, y_pred))}")
+    shape_checker(y_true, y_pred, output_mode=True)
     
     
     # Handling Single Output Metrics
-    if y_true.ndim == 1:
+    if dim_validator(y_true):
         return _accuracy_score_helper_1d(y_true=y_true, y_pred=y_pred, normalize=normalize)
-    
-    if y_true.shape[1] == 1:
-        return _accuracy_score_helper_1d(y_true=y_true, y_pred=y_pred, normalize=normalize)
+
     
     outputs = _accuracy_score_helper_2d(y_true=y_true, y_pred=y_pred, normalize=normalize)
 
-    if multi_output == "uniform_average":
-        return np.mean(outputs)
-    
-    if multi_output == "raw_values":
-        return outputs
-    
-    if multi_output == "weighted":
-        if weights is None:
-            raise ValueError(f"weights aren't given, Enter weights in function parameter")
-        
-        weights = np.asarray(weights, dtype=float)
+    # Multioutput Case Handler
+    return multi_output_selector(multi_output_param=multi_output, scores=outputs, weights=weights)
 
-        if weights.shape[0] != len(outputs):
-            raise ValueError(f"Invalid Weight Size got {weights.shape[0]}, needed {len(outputs)}")
-        
-        np.average(outputs, weights=weights)
-
-    
 
         
 """Accuracy score Helper for 1D"""
 def _accuracy_score_helper_1d(y_true, y_pred, normalize=True):
-    y_true = np.ravel(y_true)
-    y_pred = np.ravel(y_pred)
+    y_true, y_pred = convert1D(y_true, y_pred)
     
     correct_count = 0
 
@@ -179,11 +165,10 @@ def confusion_metrics(y_true, y_pred):
     """
     y_true, y_pred = convert_array(y_true, y_pred)
 
-    y_true = np.ravel(y_true) # converting shape (n, 1) to (n, )
-    y_pred = np.ravel(y_pred)
+    y_true, y_pred = convert1D(y_true, y_pred) # converting shape (n, 1) to (n,)
 
-    if len(y_true) != len(y_pred): # checking length to raise length error :)
-        raise ValueError(f"Invalid Shape Found, {y_true.shape}, {y_pred.shape}")
+    shape_checker(y_true, y_pred, output_mode=True) # checking length to raise more & more errors :)
+
 
     classes = np.unique(np.concatenate((y_true, y_pred))) # seprating class
     num_class = len(classes)

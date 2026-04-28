@@ -205,11 +205,12 @@ def mse(
 
     shape_checker(arr1=y_true, arr2=y_pred, output_mode=True)
     
-    if dim_validator(y_true):
+    if dim_validator(y_true): # Handling 1D Case
         return mse_helper_1d(y_true, y_pred)
     
     output_errors = mse_helper_2D(y_true, y_pred)
 
+    # Handling Multi-Ouput Sparse Metrics Scene
     return multi_output_selector(multi_output_param=multi_output, scores=output_errors, weights=weights)
     
 
