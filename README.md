@@ -129,7 +129,7 @@ rslearn/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
+git clone https://github.com/Rustam-Singh-Bhadouriya/rslearn-ML.git
 cd rslearn
 ```
 
