@@ -7,8 +7,15 @@
 
 - 🔹 Latest Version - `v1.0.4`
   - Includes Always Latest Things Read [CHANGELOG](CHANGELOG.md)
+ 
+  - For Fresh Install
   ```bash
   pip install rslearn-ML
+  ```
+
+  - For Update
+  ```bash
+  pip install --upgrade rslearn-ML
   ```
 
 - 🔹 `v1.0.0`
