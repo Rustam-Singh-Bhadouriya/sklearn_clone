@@ -84,7 +84,8 @@ class LinearRegression():
 
         self.weights = None
         self.bias = None
-        self.Scaler = StandardScaler()
+        self.Scaler = StandardScaler() # Scaler
+        self.flag = False # Flag For Scaler Status
 
         valid_params = {"l1", "l2", "elastic_net", None}
         if regulization not in valid_params:
@@ -144,6 +145,7 @@ class LinearRegression():
 
         if scale:
             X = self.Scaler.fit_transform(X)
+            self.flag = True
 
         
         n_samples, n_feature = X.shape
@@ -202,7 +204,11 @@ class LinearRegression():
             raise ValueError("Got Empty Array")
         
         new_data = np.asarray(new_data, dtype=float)
-        new_data = self.Scaler.transform(new_data)
+
+        if self.flag:
+            new_data = self.Scaler.transform(new_data)
+
+
 
         if new_data.ndim == 1:
             new_data = new_data.reshape(-1, 1)

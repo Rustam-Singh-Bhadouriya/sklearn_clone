@@ -67,6 +67,7 @@ class LogisticRegression:
         self.weights = None
         self.bias = None
         self.Scaler = StandardScaler()
+        self.flag = False # Flag for Scaler's Status
 
     # Probablity predictor for catogirical classification
     def predict_proba(self, X):
@@ -122,6 +123,8 @@ class LogisticRegression:
 
         if scale:
             X = self.Scaler.fit_transform(X)
+            self.flag = True
+
 
 
 
@@ -159,8 +162,9 @@ class LogisticRegression:
         if X.ndim == 1:
             X = X.reshape(-1, 1)
 
-        # Scaling
-        X = self.Scaler.transform(X)
+        # Scaling If Available
+        if self.flag:
+            X = self.Scaler.transform(X)
 
         probs = self.predict_proba(X)
 

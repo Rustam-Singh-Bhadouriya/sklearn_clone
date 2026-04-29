@@ -43,6 +43,7 @@ class Lasso:
         self.alpha = alpha
         self.l1_score = l1_score
         self.weights, self.bias = None
+        self.model = None
     
     def fit(self, X, y, scale=True):
 
@@ -112,6 +113,7 @@ class Ridge:
         self.alpha = alpha
         self.l1_score = l1_score
         self.weights, self.bias = None
+        self.model = None
     
     def fit(self, X, y, scale=True):
         """
@@ -182,6 +184,7 @@ class ElasticNet:
         self.alpha = alpha
         self.l1_score = l1_score
         self.weights, self.bias = None
+        self.model = None
     
     def fit(self, X, y, scale=True):
         """
