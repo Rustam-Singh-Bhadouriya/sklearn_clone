@@ -7,25 +7,24 @@ This project is focused on deeply understanding ML algorithms by implementing th
 ---
 
 ## Release & Changes
-* **Version : 1.0.5 - 1.0.4**
-* **Release Date: 2026-04-29**
+* **Version : 1.0.6 - 1.0.5**
+* **Release Date: 2026-04-30**
 
 ## 🚀 Features
 
-### Latest (In linear_model): 
-* `Inbuilt Auto Scale For Train And Predict Time`
+### Latest (In Pipeline): 
+* `Pipeline With Inbuilt Analysis Method`
 
 More Info: [CHANGELOG](CHANGELOG.md)  
-More Parameter Info: [README](rslearn/linear_model/README.md)  
+More Parameter Info: [README](rslearn/Pipeline/README.md)  
 Read Doc Strings For Extra Information About Parameter
 
-## 🐛 Fixes
-* Gradients Instability  
-* Code Design
+### Changed
+* MIT License to GNU GPL v3
 
 ## 🗄️ New File & Folders
-* **Folder: BaseEstimators**
-* **File: BaseEstimators/_base.py**
+* **Folder: Pipeline**
+* **File: Pipeline/_pipeline.py**
 
 ## Download Version Specific Module
 ***[Downloads - Module](download.md)***

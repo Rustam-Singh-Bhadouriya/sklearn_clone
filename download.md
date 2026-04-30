@@ -41,6 +41,11 @@
   pip install rslearn-ML==1.0.4
   ```
 
+- 🔹 `v1.0.5`
+  - Pipeline Support
+  ``` bash
+  pip install rslearn-ML==1.0.5
+  ```
 ## Source Code Download
 
 - Using CLI
