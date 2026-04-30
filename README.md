@@ -1,8 +1,21 @@
-# 🧠 rslearn — Machine Learning Library (From Scratch)
+# 🚀 rslearn
 
-**rslearn** is a lightweight, from-scratch machine learning library inspired by scikit-learn, built using pure Python and NumPy.
+> A beginner-friendly machine learning library that automates preprocessing, training, and evaluation.
 
-This project is focused on deeply understanding ML algorithms by implementing them step-by-step, while also providing a clean and usable API similar to modern ML libraries.
+![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
+![Python](https://img.shields.io/badge/python-3.13.x-blue.svg)
+![Status](https://img.shields.io/badge/status-active-success.svg)
+![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+
+---
+
+## ✨ Why rslearn?
+
+- ⚡ Minimal setup — no complex configuration  
+- 🤖 Automatic pipeline (scaling, splitting, evaluation)  
+- 📊 Built-in metrics for regression & classification  
+- 🧠 Designed for beginners learning ML concepts  
+- 🧩 Clean and simple API inspired by sklearn  
 
 ---
 
