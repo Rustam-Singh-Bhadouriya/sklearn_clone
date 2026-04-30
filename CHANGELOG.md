@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.6 - v1.0.4] - 2026-04-30
+## [1.0.6 - v1.0.5] - 2026-04-30
 
 ### Added
-* `BaseEstimators/_base.py`
+* `Pipeline/_pipeline.py`
 
 ----------
 ### New Features
