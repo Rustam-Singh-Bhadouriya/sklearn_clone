@@ -21,12 +21,12 @@
 
 ## Release & Changes
 * **Version : 1.0.6 - 1.0.5**
-* **Release Date: 2026-04-30**
+* **Release Date: 2026-04-31**
 
 ## 🚀 Features
 
 ### Latest (In Pipeline): 
-* `Pipeline With Inbuilt Analysis Method`
+* `Pipeline With Inbuilt Analysis Method With Regulizations class support`
 
 More Info: [CHANGELOG](CHANGELOG.md)  
 More Parameter Info: [README](rslearn/Pipeline/README.md)  

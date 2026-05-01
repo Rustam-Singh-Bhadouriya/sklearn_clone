@@ -5,7 +5,7 @@
 
 ## Module Download
 
-- 🔹 Latest Version - `v1.0.4`
+- 🔹 Latest Version - `v1.0.5`
   - Includes Always Latest Things Read [CHANGELOG](CHANGELOG.md)
  
   - For Fresh Install

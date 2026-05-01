@@ -29,6 +29,10 @@ Includes -
         * `Mean Squared Error`
         * `Mean Absolute Error`
         * `Root Mean Squared Error`
+* Support Regulization Class Support
+    * `Ridge`
+    * `Lasso`
+    * `ElasticNet`
 
 ## 📐 Parameters
 

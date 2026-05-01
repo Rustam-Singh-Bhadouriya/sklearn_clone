@@ -58,8 +58,9 @@ class Lasso:
         self.l1_score = l1_score
         self.weights, self.bias = None
         self.model = None
+        self.type = "regression"
     
-    def fit(self, X, y, scale=True):
+    def fit(self, X, y, scale=True, min_loss : float = 0.1):
 
         """
         `fit()` Function For `Lasso` to Train The Model  
@@ -81,7 +82,7 @@ class Lasso:
 
         model = LinearRegression(regulization="l1", alpha=self.alpha, l1_ratio=self.l1_score)
         
-        model.fit(X, y, scale=scale)
+        model.fit(X, y, scale=scale, verbose=False, min_loss=min_loss)
 
         self.weights, self.bias = model.get_weight_bias()
         self.model = model
@@ -128,8 +129,9 @@ class Ridge:
         self.l1_score = l1_score
         self.weights, self.bias = None
         self.model = None
+        self.type = "regression" # Flags for pipeline Analysis
     
-    def fit(self, X, y, scale=True):
+    def fit(self, X, y, scale=True, min_loss : float = 0.1):
         """
         `fit()` Function For `Ridge` to Train The Model  
 
@@ -153,7 +155,7 @@ class Ridge:
 
 
         
-        model.fit(X, y, scale=scale)
+        model.fit(X, y, scale=scale, verbose=False, min_loss=min_loss)
 
         self.weights, self.bias = model.get_weight_bias()
         self.model = model
@@ -199,8 +201,9 @@ class ElasticNet:
         self.l1_score = l1_score
         self.weights, self.bias = None
         self.model = None
+        self.type = "regression"
     
-    def fit(self, X, y, scale=True):
+    def fit(self, X, y, scale=True, min_loss : float = 0.1):
         """
         `fit()` Function For `ElasticNet` to Train The Model  
 
@@ -222,7 +225,7 @@ class ElasticNet:
 
         model = LinearRegression(regulization="elastic_net", alpha=self.alpha, l1_ratio=self.l1_score)
         
-        model.fit(X, y, scale=scale)
+        model.fit(X, y, scale=scale, verbose=False, min_loss=min_loss)
 
         self.weights, self.bias = model.get_weight_bias()
         self.model = model

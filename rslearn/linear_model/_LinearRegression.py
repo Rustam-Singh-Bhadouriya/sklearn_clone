@@ -102,6 +102,7 @@ class LinearRegression():
         self.flag = False # Flag For Scaler Status
         self.type = "regression"
         self.fitted_shape = None # Edge Case
+        self._fitted = False # Edge Case
 
         valid_params = {"l1", "l2", "elastic_net", None}
         if regulization not in valid_params:
@@ -162,6 +163,8 @@ class LinearRegression():
         if scale:
             X = self.Scaler.fit_transform(X)
             self.flag = True
+        else:
+            X = X/max(X)
 
         
         n_samples, n_feature = X.shape
@@ -203,6 +206,7 @@ class LinearRegression():
         
         self.weights = weights
         self.bias = bias
+        self._fitted = True
 
     def get_weight_bias(self) -> np.array:
         """Input = None, 
@@ -219,19 +223,22 @@ class LinearRegression():
         """
         if len(new_data) == 0:
             raise ValueError("Got Empty Array")
+
+        if not self._fitted:
+            raise ValueError("Model has not been fitted yet.")
         
         new_data = np.asarray(new_data, dtype=float)
+        if new_data.ndim == 1:
+            new_data = new_data.reshape(-1, 1)
 
         if self.fitted_shape != new_data.shape:
             raise ValueError(f"Invalid Shape, Model trained on {self.fitted_shape} but got {new_data.shape}")
 
         if self.flag:
             new_data = self.Scaler.transform(new_data)
-
-
-
-        if new_data.ndim == 1:
-            new_data = new_data.reshape(-1, 1)
+        else:
+            new_data = new_data/max(new_data)
+        
 
         return (np.dot(new_data, self.weights) + self.bias).round(2)
 

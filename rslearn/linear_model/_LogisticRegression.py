@@ -84,6 +84,7 @@ class LogisticRegression:
         self.flag = False # Flag for Scaler's Status
         self.type = "classification" # Flag for Pipeline
         self.fitted_shape=None # Edge Case
+        self._fitted=False
 
     # Probablity predictor for catogirical classification
     def predict_proba(self, X):
@@ -140,6 +141,8 @@ class LogisticRegression:
         if scale:
             X = self.Scaler.fit_transform(X)
             self.flag = True
+        else:
+            X = X/max(X)
 
         self.fitted_shape=X.shape
 
@@ -161,6 +164,8 @@ class LogisticRegression:
             Model = _catogirical_fit(X=X, y=y)
             Model.fit()
             self._cato_model = Model # Saving saga Model
+        
+        self._fitted = True
 
     def predict(self, X):
 
@@ -176,6 +181,9 @@ class LogisticRegression:
 
         if len(X) == 0:
             raise ValueError("Got Empty Array")
+        
+        if not self._fitted:
+            raise ValueError("Model has not been fitted yet.")
 
         X = np.asarray(X)
         if X.ndim == 1:
@@ -187,6 +195,9 @@ class LogisticRegression:
         # Scaling If Available
         if self.flag:
             X = self.Scaler.transform(X)
+        
+        else: # For Gradients Stability
+            X = X/max(X)
 
         probs = self.predict_proba(X)
 
