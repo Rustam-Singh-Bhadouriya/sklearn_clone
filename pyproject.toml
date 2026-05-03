@@ -1,6 +1,6 @@
 [project]
 name = "rslearn-ML"
-version = "1.0.5"
+version = "1.0.6"
 description = "A simple sklearn-like ML library built from scratch"
 authors = [
     { name="Rustam Singh Bhadouriya", email="rustambhadouriya7@gmail.com" }

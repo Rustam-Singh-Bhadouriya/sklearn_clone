@@ -5,7 +5,7 @@
 
 ## Module Download
 
-- 🔹 Latest Version - `v1.0.5`
+- 🔹 Latest Version - `v1.0.6`
   - Includes Always Latest Things Read [CHANGELOG](CHANGELOG.md)
  
   - For Fresh Install
@@ -52,6 +52,12 @@
   - Pipeline Support
   ``` bash
   pip install rslearn-ML==1.0.5
+  ```
+
+- 🔹 `v1.0.5`
+  - Pipeline Support
+  ``` bash
+  pip install rslearn-ML==1.0.6
   ```
 ## Source Code Download
 
